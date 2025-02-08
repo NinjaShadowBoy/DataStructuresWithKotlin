@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 
 class PriorityQueue<T> {
     private val elements: MutableList<PQElement<T>> = mutableListOf()

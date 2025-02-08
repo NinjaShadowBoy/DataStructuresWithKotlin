@@ -1,4 +1,4 @@
-import DataStructures.LinkedList
+import dataStructures.LinkedList
 
 
 fun main(){

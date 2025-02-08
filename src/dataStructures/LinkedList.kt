@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 
 class LinkedList<T> {
     private var head: Node<T>? = null

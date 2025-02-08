@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 import kotlin.collections.HashMap
 
 class Graph {

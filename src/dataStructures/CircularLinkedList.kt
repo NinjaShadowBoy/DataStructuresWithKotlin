@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 
 class CircularLinkedList<E> {
     private var head: CNode<E>? = null

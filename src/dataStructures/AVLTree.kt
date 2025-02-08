@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 
 class AVLNode(var value: Int) {
     var height: Int = 1

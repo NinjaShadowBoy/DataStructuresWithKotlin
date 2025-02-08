@@ -1,3 +1,3 @@
-package DataStructures
+package dataStructures
 
 class QueueUnderflowException: RuntimeException()

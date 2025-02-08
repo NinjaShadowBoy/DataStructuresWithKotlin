@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 
 class DoublyLinkedList<E> {
     private var head: Node<E>? = null

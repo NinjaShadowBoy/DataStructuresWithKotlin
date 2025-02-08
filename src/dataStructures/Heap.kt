@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 
 class Heap(private val isMinHeap: Boolean = true) {
     private var list = mutableListOf<Int>()

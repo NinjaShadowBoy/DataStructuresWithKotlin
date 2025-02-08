@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 
 enum class Color {
     RED, BLACK

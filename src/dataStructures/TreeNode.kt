@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 
 class TreeNode(var value: Int) {
     var left: TreeNode? = null

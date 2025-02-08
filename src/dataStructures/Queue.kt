@@ -1,11 +1,9 @@
-package DataStructures
+package dataStructures
 
-import jdk.internal.org.jline.utils.Colors.s
-
-class Stack<E> {
-    private val minCapacityIncrement: Int = 12
+class Queue<E> {
+    private val minCapacityIncrement = 12
     private var elements: Array<Any?>
-    private var size: Int = 0
+    private var size = 0
 
     constructor() {
         elements = arrayOf()
@@ -14,28 +12,28 @@ class Stack<E> {
     constructor(initialCapacity: Int) {
         elements = arrayOfNulls(initialCapacity)
     }
+
     constructor(elements: Array<E>) {
         this.elements = elements as Array<Any?>
         size += elements.size
     }
 
-    fun push(element: E) {
+    fun enqueue(element: E) {
+        // Increase size by size/2 (ie size shr 1) or by minCapacityIncrement
         if (size == elements.size) {
-            // Increase size by size/2 (ie size shr 1) or by minCapacityIncrement
             val newArray = arrayOfNulls<Any>(size + if (size < minCapacityIncrement/2)
                 minCapacityIncrement
-            else
-            size shr 1)
+            else size shr 1)
             System.arraycopy(elements, 0, newArray, 0, size)
             elements = newArray
         }
         elements[size++] = element
     }
 
-    fun pushAll(newElements: Array<E>) {
+    fun enqueueAll(newElements: Array<E>) {
         val newSize = size + newElements.size
+        // If the resulting size is more than the current array size
         if(elements.size < newSize) {
-            // If the resulting size is more than the current array size
             val newArray = arrayOfNulls<Any>(newSize + minCapacityIncrement)
             // Copy all elements in the new larger array
             System.arraycopy(elements, 0, newArray, 0, size)
@@ -46,27 +44,36 @@ class Stack<E> {
         size = newSize
     }
 
-    fun pop(): E{
-        // remove the last element and replace with null
-        if (size == 0) throw StackUnderflowException()
-        val index = --size
-        val last = elements[index]
-        elements[index] = null
-        return last as E
+    fun dequeue(): E {
+        if(size == 0) throw QueueUnderflowException()
+        val oldValue = elements[0]
+        elements[0] = null
+        // Shift elements
+        System.arraycopy(elements, 1, elements, 0, --size)
+        return oldValue as E
     }
 
-    fun pop(count: Int){
-        // replace 'count' elements with null at end of stack
-        if (size == 0 || size < count) throw StackUnderflowException()
+    fun dequeueAll(count: Int) {
+        if(size == 0 || size < count) throw QueueUnderflowException()
+        // Shift elements
+        System.arraycopy(elements, 1, elements, 0, size - count)
+        size -= count
+        // Set all liberated spaces to null
         for(i in 0 until count){
-            elements[--size] = null
+            elements[size + i] = null
         }
     }
 
-    fun peek() = try {
+    fun front() = try {
+        elements[0] as E
+    }catch (e : IndexOutOfBoundsException){
+        throw QueueUnderflowException()
+    }
+
+    fun rear() = try {
         elements[size - 1] as E
-    }catch (e: IndexOutOfBoundsException){
-        throw StackUnderflowException()
+    }catch (e : IndexOutOfBoundsException){
+        throw QueueUnderflowException()
     }
 
     fun isEmpty() = size == 0
@@ -87,4 +94,5 @@ class Stack<E> {
         return sb.toString()
     }
 }
-inline fun <reified T> stackOf(vararg elements: T): Stack<T> = Stack<T>(elements as Array<T>)
+
+inline fun <reified T> queueOf(vararg elements: T) = Queue<T>(elements as Array<T>)

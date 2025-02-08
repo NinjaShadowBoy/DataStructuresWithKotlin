@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 
 class HashTable<K, V> (private val size: Int){
     private val storage: Array<MutableList<Pair<K, V>>> = Array(size){mutableListOf()}

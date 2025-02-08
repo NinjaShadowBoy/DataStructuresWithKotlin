@@ -1,9 +1,9 @@
-package DataStructures
+package dataStructures
 
-class BinaryTree {
+class BinarySearchTree {
     var root: TreeNode? = null
 
-    // Recursive Insertion of data
+    // Insert data into the BST
     fun insert(value: Int) {
         root = insertRecursive(root, value)
     }
@@ -20,7 +20,7 @@ class BinaryTree {
         return current
     }
 
-    // Search a value in tree
+    // Search for a value in the tree
     fun search(value: Int): Boolean {
         return searchRecursive(root, value)
     }
@@ -29,7 +29,7 @@ class BinaryTree {
         if (current == null) {
             return false
         }
-        if (value == current.value) {
+        if (current.value == value) {
             return true
         }
         return if (value < current.value) {
@@ -39,6 +39,7 @@ class BinaryTree {
         }
     }
 
+    // Delete a value from the tree
     fun delete(value: Int) {
         root = deleteRecursive(root, value)
     }
@@ -48,22 +49,20 @@ class BinaryTree {
             return null
         }
         if (value == current.value) {
-            // Check the children
             if (current.left == null && current.right == null) {
                 return null
             }
-            if (current.right == null) {
-                return current.left
-            }
             if (current.left == null) {
                 return current.right
+            }
+            if (current.right == null) {
+                return current.left
             }
             val smallestValue = findSmallestValue(current.right!!)
             current.value = smallestValue
             current.right = deleteRecursive(current.right, smallestValue)
             return current
         }
-
         if (value < current.value) {
             current.left = deleteRecursive(current.left, value)
             return current
@@ -80,20 +79,42 @@ class BinaryTree {
         }
     }
 
-    // Different tree traversal methods
-    fun preOrderTraversal(node: TreeNode?) {
-        if (node != null) {
-            println(node.value)
-            preOrderTraversal(node.left)
-            preOrderTraversal(node.right)
+    fun findMin(): Int? {
+        if (root == null) {
+            return null
+        }
+        return findSmallestValue(root!!)
+    }
+
+    private fun findMaxRecursive(node: TreeNode?): Int? {
+        if (node == null) {
+            return null
+        }
+        return if (node.right == null) {
+            node.value
+        } else {
+            findMaxRecursive(node.right)
         }
     }
 
+    fun findMax(): Int? {
+        return findMaxRecursive(root)
+    }
+
+    // Tree traversal methods
     fun inOrderTraversal(node: TreeNode?) {
         if (node != null) {
             inOrderTraversal(node.left)
             println(node.value)
             inOrderTraversal(node.right)
+        }
+    }
+
+    fun preOrderTraversal(node: TreeNode?) {
+        if (node != null) {
+            println(node.value)
+            preOrderTraversal(node.left)
+            preOrderTraversal(node.right)
         }
     }
 
@@ -104,5 +125,4 @@ class BinaryTree {
             println(node.value)
         }
     }
-
 }

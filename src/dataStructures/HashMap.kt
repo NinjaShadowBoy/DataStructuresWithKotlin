@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 
 class HashMap<K, V> {
     private data class Entry<K, V>(val key: K, var value: V){

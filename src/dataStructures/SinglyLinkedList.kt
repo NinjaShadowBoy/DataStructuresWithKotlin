@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 
 class SinglyLinkedList<E> {
     private var size = 0

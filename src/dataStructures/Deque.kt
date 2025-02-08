@@ -1,4 +1,4 @@
-package DataStructures
+package dataStructures
 
 class Deque<E>{
     private val minCapacityIncrement = 12
